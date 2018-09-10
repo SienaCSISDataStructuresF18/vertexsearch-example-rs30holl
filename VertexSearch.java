@@ -43,6 +43,8 @@ public class VertexSearch {
         // from Java about potentially using variables that have not been given an
         // initial value.
         int numVertices = 0, numEdges = 0;
+        
+        Waypoint points[] = {};
         try {
             Scanner inFile = new Scanner(new File(args[0]));
             
@@ -58,6 +60,9 @@ public class VertexSearch {
             numVertices = inFile.nextInt();
             numEdges = inFile.nextInt();
             
+            // construct our array large enough to hold all of our Waypoints
+            points = new Waypoint[numVertices];
+            
             // the next numVertices lines each have a string (a vertex label)
             // followed by two numbers (the latitude and the longitude of the
             // vertex), so a counting loop can work here
@@ -65,6 +70,8 @@ public class VertexSearch {
                 String label = inFile.next();
                 double lat = inFile.nextDouble();
                 double lng = inFile.nextDouble();
+                Waypoint w = new Waypoint(label, lat, lng);
+                points[vertexNum] = w;
             }
             
             inFile.close();
@@ -78,6 +85,38 @@ public class VertexSearch {
         
         System.out.println("Successfully read in " + numVertices + " vertex entries.");
         System.out.println("Ignored " + numEdges + " edge entries.");
+        
+        Waypoint north, south, east, west;
+        north = points[0];
+        south = points[0];
+        east = points[0];
+        west = points[0];
+        
+        
+        for (int check = 1; check < numVertices; check++){
+            
+            //check if further north than "north"
+            if (points[check].getLat() > north.getLat()){
+                north = points[check];
+            }
+            //check if further south than "south"
+            if (points[check].getLat() < south.getLat()){
+                south = points[check];
+            }
+            //check if further east than "east"
+            if (points[check].getLng() > east.getLng()){
+                east = points[check];
+            }
+            //check if further west than "west"
+            if (points[check].getLng() < west.getLng()){
+                west = points[check];
+            }
+        }
+        
+        System.out.println("North: " + north);
+        System.out.println("South: " + south);
+        System.out.println("East: " + east);
+        System.out.println("West: " + west);
     }
 
 }

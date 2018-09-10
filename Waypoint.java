@@ -10,9 +10,26 @@ public class Waypoint
     private double lat;
     private double lng;
     
+    //Constructor for 'Waypoint' object
     public Waypoint(String label, double lat, double lng){
         this.label = label;
         this.lat = lat;
         this.lng = lng;
+    }
+    
+    public String getLabel(){
+        return label;
+    }
+    
+    public double getLat(){
+        return lat;
+    }
+    
+    public double getLng(){
+        return lng;
+    }
+    
+    public String toString(){
+        return label + " (" + lat + ", " + lng + ")";
     }
 }
